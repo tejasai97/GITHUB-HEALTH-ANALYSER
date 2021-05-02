@@ -1,0 +1,153 @@
+schema:
+- db: GitDB
+  tables:
+  - table: company
+    collection: company
+    pipeline: []
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: name
+      MongoType: string
+      SqlName: name
+      SqlType: varchar
+  - table: company_repos
+    collection: company
+    pipeline:
+    - $unwind:
+        includeArrayIndex: repos_idx
+        path: $repos
+        preserveNullAndEmptyArrays: false
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: repos
+      MongoType: string
+      SqlName: repos
+      SqlType: varchar
+    - Name: repos_idx
+      MongoType: int
+      SqlName: repos_idx
+      SqlType: int
+  - table: libraries
+    collection: libraries
+    pipeline: []
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: companyname
+      MongoType: string
+      SqlName: companyname
+      SqlType: varchar
+    - Name: count
+      MongoType: int
+      SqlName: count
+      SqlType: int
+    - Name: name
+      MongoType: string
+      SqlName: name
+      SqlType: varchar
+  - table: libraries_repos
+    collection: libraries
+    pipeline:
+    - $unwind:
+        includeArrayIndex: repos_idx
+        path: $repos
+        preserveNullAndEmptyArrays: false
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: repos
+      MongoType: string
+      SqlName: repos
+      SqlType: varchar
+    - Name: repos_idx
+      MongoType: int
+      SqlName: repos_idx
+      SqlType: int
+  - table: repository
+    collection: repository
+    pipeline: []
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: closeissues
+      MongoType: int
+      SqlName: closeissues
+      SqlType: int
+    - Name: closepullrequest
+      MongoType: int
+      SqlName: closepullrequest
+      SqlType: int
+    - Name: commits
+      MongoType: int
+      SqlName: commits
+      SqlType: int
+    - Name: forks
+      MongoType: int
+      SqlName: forks
+      SqlType: int
+    - Name: name
+      MongoType: string
+      SqlName: name
+      SqlType: varchar
+    - Name: openissues
+      MongoType: int
+      SqlName: openissues
+      SqlType: int
+    - Name: openpullrequests
+      MongoType: int
+      SqlName: openpullrequests
+      SqlType: int
+  - table: repository_forkdates
+    collection: repository
+    pipeline:
+    - $unwind:
+        includeArrayIndex: forkdates_idx
+        path: $forkdates
+        preserveNullAndEmptyArrays: false
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: forkdates
+      MongoType: date
+      SqlName: forkdates
+      SqlType: timestamp
+    - Name: forkdates_idx
+      MongoType: int
+      SqlName: forkdates_idx
+      SqlType: int
+  - table: repository_responsetime
+    collection: repository
+    pipeline:
+    - $unwind:
+        includeArrayIndex: responsetime_idx
+        path: $responsetime
+        preserveNullAndEmptyArrays: false
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: objectid
+    - Name: responsetime
+      MongoType: int
+      SqlName: responsetime
+      SqlType: int
+    - Name: responsetime_idx
+      MongoType: int
+      SqlName: responsetime_idx
+      SqlType: int
+   SqlName: responsetime_idx
+      SqlType: int
